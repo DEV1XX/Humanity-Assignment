@@ -1,0 +1,43 @@
+{     
+  "metrics": {       
+    "totalPromoters": { "count": 1234, "change": "+12.3%" },       
+    "conversionRate": { "value": "23.5%", "change": "-2.4%" },       
+    "revenueGenerated": { "amount": "$12,345", "change": "+8.7%" },       
+    "activeCampaigns": 3     
+  },     
+  "referralStats": {       
+    "repeatRate": "42%",       
+    "engagementRate": "67%",       
+    "churnRate": "28%",       
+    "upsellRate": "19%"     
+  },     
+  "promoterPerformance": {       
+    "labels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],       
+    "data": [32, 30, 38, 36, 40, 42]     
+  },     
+  "conversionSuccess": {       
+    "labels": ["Referrals sent", "Converted"],       
+    "data": [57, 43]     
+  },     
+  "topChannels": [       
+    { "platform": "Facebook", "percentage": 78 },       
+    { "platform": "Twitter", "percentage": 45 },       
+    { "platform": "LinkedIn", "percentage": 23 }     
+  ],     
+  "recentActivities": [       
+    { "activity": "Julian earned $10", "date": "28-4-2024", "time": "10:30 AM" },       
+    { "activity": "John Doe signed up from your referral link", "date": "29-4-2024", "time": "9:45 AM" },       
+    { "activity": "You reached 50 referrals milestone!", "date": "30-4-2024", "time": "8:20 AM" },
+    { "activity": "You updated your referral campaign", "date": "31-4-2024", "time": "7:00 AM" }
+  ],
+  "leaderboard": [
+    { "rank": 1, "name": "Emery Dokins", "conversions": 150, "referrals": 80, "successRate": "60%", "revenue": "$1,100" },
+    { "rank": 2, "name": "Kadin Lapishtz", "conversions": 132, "referrals": 90, "successRate": "65%", "revenue": "$950" },
+    { "rank": 3, "name": "Randy Culhane", "conversions": 110, "referrals": 60, "successRate": "60%", "revenue": "$880" },
+    { "rank": 4, "name": "Jaxson Valorem", "conversions": 100, "referrals": 65, "successRate": "75%", "revenue": "$500" },
+    { "rank": 5, "name": "Jocelyn Leon", "conversions": 50, "referrals": 30, "successRate": "63%", "revenue": "$600" },
+    { "rank": 6, "name": "Marin Septimus", "conversions": 80, "referrals": 35, "successRate": "25%", "revenue": "$300" },
+    { "rank": 7, "name": "Elayna Fritz", "conversions": 110, "referrals": 75, "successRate": "45%", "revenue": "$450" },
+    { "rank": 8, "name": "Raisa Culham", "conversions": 95, "referrals": 40, "successRate": "38%", "revenue": "$200" }
+  ]
+}
