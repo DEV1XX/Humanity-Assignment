@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const Login = () => {
@@ -7,18 +7,22 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     // Login logic here
     console.log({ email, password, rememberMe });
+    // Navigate to home page regardless of input validity
+    navigate('/');
   };
 
   const handleMagicLinkLogin = (e) => {
     e.preventDefault();
     // Magic link login logic here
     console.log({ email });
+    // Navigate to home page after magic link request
+    navigate('/');
   };
 
   const togglePasswordVisibility = () => {
@@ -31,7 +35,10 @@ const Login = () => {
         <h2 className="text-2xl font-medium text-center mb-6">Login to ReferralHub</h2>
         
         {/* Google/Microsoft Login Button */}
-        <button className="w-full py-2 px-4 border border-gray-300 rounded-md flex justify-center items-center gap-2 mb-4 hover:bg-gray-50 transition-colors">
+        <button 
+          className="w-full py-2 px-4 border border-gray-300 rounded-md flex justify-center items-center gap-2 mb-4 hover:bg-gray-50 transition-colors"
+          onClick={() => navigate('/')}
+        >
           <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -55,7 +62,6 @@ const Login = () => {
               className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
           <button
@@ -81,7 +87,6 @@ const Login = () => {
               className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
           <div className="mb-4">
@@ -93,7 +98,6 @@ const Login = () => {
                 className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
               <button
                 type="button"
@@ -131,7 +135,10 @@ const Login = () => {
 
         {/* Social Login Buttons */}
         <div className="flex justify-center space-x-4 mb-6">
-          <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-50">
+          <button 
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-50"
+            onClick={() => navigate('/')}
+          >
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
@@ -139,13 +146,22 @@ const Login = () => {
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
             </svg>
           </button>
-          <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-600">
+          <button 
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-600"
+            onClick={() => navigate('/')}
+          >
             <Facebook size={20} />
           </button>
-          <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-400">
+          <button 
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-400"
+            onClick={() => navigate('/')}
+          >
             <Twitter size={20} />
           </button>
-          <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-700">
+          <button 
+            className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-700"
+            onClick={() => navigate('/')}
+          >
             <Linkedin size={20} />
           </button>
         </div>

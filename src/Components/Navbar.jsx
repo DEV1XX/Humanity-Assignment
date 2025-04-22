@@ -28,8 +28,8 @@ const Navbar = () => {
       <h1 className="text-xl font-semibold text-gray-800">{getHeaderTitle()}</h1>
       <div className="flex items-center space-x-4">
         <div className="m-3">
-          <a href="/login" className="m-3 p-2 bg-blue-200 rounded-md h-[2vh] w-[4vw]">Login</a>
-          <a href="/register" className="m-3 p-2 bg-blue-200 rounded-md h-[2vh] w-[4vw]">Register</a>
+          <a href="/login" className="m-3 p-2  text-blue-500 font-semibold rounded-md ">Login</a>
+          <a href="/register" className="m-3 p-2  text-blue-500 font-semibold rounded-md">Register</a>
         </div>
         <div className="text-right">
           <p className="text-sm font-medium">Kadin Stanton</p>

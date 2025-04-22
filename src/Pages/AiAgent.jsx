@@ -3,11 +3,11 @@ import { RefreshCw, CornerUpRight, Send, Share2, Users, BarChart, ArrowRight } f
 
 const AiAgent = () => {
   const [inputValue, setInputValue] = useState("");
-  
   // User profile photo URL - replace with actual URL in production
   const userProfilePhoto = "https://i.pravatar.cc/40"; // Placeholder image
   
-  const conversation = [
+  // Initialize conversation with the existing messages
+  const [conversation, setConversation] = useState([
     {
       type: "agent",
       message: "Welcome Back, Kadin! How can I help you today?"
@@ -66,13 +66,37 @@ const AiAgent = () => {
         duration: "3 months"
       }
     }
-  ];
+  ]);
+
+  // Simulate AI response (in a real application, this would be an API call)
+  const generateAgentResponse = (userMessage) => {
+    // For demonstration purposes, simple automatic reply
+    return {
+      type: "agent",
+      message: `I've received your message: "${userMessage}". How can I further assist with your referral campaign?`
+    };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      // Handle message submission logic here
+      // Add user message to conversation
+      const userMessage = {
+        type: "user",
+        message: inputValue
+      };
+      
+      // Update conversation with user message
+      setConversation([...conversation, userMessage]);
+      
+      // Clear input field
       setInputValue("");
+      
+      // Simulate agent response (with a slight delay to feel more natural)
+      setTimeout(() => {
+        const agentResponse = generateAgentResponse(inputValue);
+        setConversation(prevConversation => [...prevConversation, agentResponse]);
+      }, 500);
     }
   };
 
@@ -93,14 +117,17 @@ const AiAgent = () => {
           </div>
           <h1 className="text-base md:text-lg font-medium text-gray-800">AI Agent</h1>
         </div>
-        <button className="flex items-center text-gray-500 hover:text-gray-700 text-sm md:text-base">
+        <button 
+          className="flex items-center text-gray-500 hover:text-gray-700 text-sm md:text-base"
+          onClick={() => setConversation(conversation.slice(0, 1))} // Reset conversation to just the welcome message
+        >
           <RefreshCw size={16} className="mr-1" />
           <span className="hidden sm:inline">Reset</span>
         </button>
       </div>
 
       {/* Chat Container */}
-      <div className="flex-grow overflow-y-auto px-3 md:px-6 py-3 md:py-4 bg-white">
+      <div className="flex-grow overflow-y-auto px-3 md:px-6 py-3 md:py-4 bg-white" id="chat-container">
         {conversation.map((item, index) => (
           <div key={index} className="mb-4 md:mb-6">
             {item.type === "agent" ? (
