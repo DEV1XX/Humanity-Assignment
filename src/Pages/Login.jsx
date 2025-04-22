@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const Login = () => {
@@ -7,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+
 
   const handleLogin = (e) => {
     e.preventDefault();

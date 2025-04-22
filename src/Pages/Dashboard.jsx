@@ -142,14 +142,40 @@ const Dashboard = () => {
     maintainAspectRatio: false
   };
 
+  // Create gradient for doughnut chart
+  const createGradient = (ctx, color1, color2) => {
+    const gradient = ctx.createLinearGradient(0, 0, 150, 0);
+    gradient.addColorStop(0, color1);
+    gradient.addColorStop(1, color2);
+    return gradient;
+  };
+  
+  // Create gradients for conversion chart
+  const createConversionGradients = (ctx) => {
+    const gradient1 = ctx.createLinearGradient(0, 0, 150, 0);
+    gradient1.addColorStop(0, "#638DFF");
+    gradient1.addColorStop(1, "#82A9FF");
+    
+    const gradient2 = ctx.createLinearGradient(0, 0, 150, 0);
+    gradient2.addColorStop(0, "#E2E8FF");
+    gradient2.addColorStop(1, "#EDF2FF");
+    
+    return [gradient1, gradient2];
+  };
+
   const doughnutChartData = {
     labels: data.conversionSuccess.labels,
     datasets: [
       {
         data: data.conversionSuccess.data,
-        backgroundColor: ["#6366F1", "#A5B4FC"],
+        backgroundColor: (context) => {
+          const chart = context.chart;
+          const { ctx } = chart;
+          return createConversionGradients(ctx);
+        },
         borderWidth: 0,
-        cutout: '70%'
+        cutout: '60%', // Decreased cutout to make the chart thicker
+        borderRadius: 8 // Add rounded corners
       }
     ]
   };
@@ -157,7 +183,7 @@ const Dashboard = () => {
   const doughnutOptions = {
     plugins: {
       legend: {
-        display: true,
+        display: false, // Disabled to prevent duplicate labels
         position: 'right',
         labels: {
           usePointStyle: true,
@@ -165,7 +191,8 @@ const Dashboard = () => {
           boxWidth: 6,
           font: {
             size: 10
-          }
+          },
+          padding: 15
         }
       },
       tooltip: {
@@ -178,7 +205,7 @@ const Dashboard = () => {
         padding: 10
       }
     },
-    cutout: '70%',
+    cutout: '60%', // Decreased cutout to make the chart thicker (must match dataset value)
     maintainAspectRatio: false
   };
 
@@ -238,25 +265,33 @@ const Dashboard = () => {
         <PieStatCard
           label="Repeat Referral Rate"
           value={data.referralStats.repeatRate}
-          color="#10B981"
+          color1="#0CAD6A"
+          color2="#10B981"
+          bgColor="bg-green-50"
           helpIcon={true}
         />
         <PieStatCard
           label="Referral Engagement Rate"
           value={data.referralStats.engagementRate}
-          color="#EF4444"
+          color1="#E11D48"
+          color2="#EF4444"
+          bgColor="bg-red-50"
           helpIcon={true}
         />
         <PieStatCard
           label="Churn Rate of Leads"
           value={data.referralStats.churnRate}
-          color="#3B82F6"
+          color1="#1D4ED8"
+          color2="#3B82F6"
+          bgColor="bg-blue-50"
           helpIcon={true}
         />
         <PieStatCard
           label="Upsell Rate of Leads"
           value={data.referralStats.upsellRate}
-          color="#A855F7"
+          color1="#7C3AED"
+          color2="#A855F7"
+          bgColor="bg-purple-50"
           helpIcon={true}
         />
       </div>
@@ -282,8 +317,18 @@ const Dashboard = () => {
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <h3 className="font-medium text-gray-900 mb-4">Conversion Success Rate</h3>
             <div className="flex items-center justify-center">
-              <div className="h-48 w-64">
+              <div className="h-48 w-64 flex-shrink-0">
                 <Doughnut data={doughnutChartData} options={doughnutOptions} />
+              </div>
+              <div className="flex flex-col ml-4">
+                <div className="flex items-center mb-2">
+                  <div className="w-3 h-3 rounded-full bg-blue-400 mr-2"></div>
+                  <span className="text-sm text-gray-600">Referrals sent 57%</span>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-3 h-3 rounded-full bg-blue-100 mr-2"></div>
+                  <span className="text-sm text-gray-600">Converted 43%</span>
+                </div>
               </div>
             </div>
           </div>
@@ -291,18 +336,18 @@ const Dashboard = () => {
           <div className="bg-white rounded-lg p-4 shadow-sm">
             <h3 className="font-medium text-gray-900 mb-4">Top Performing Channel</h3>
             <div className="grid grid-cols-3 gap-3">
-              {data.topChannels.map((channel, index) => (
-                <div 
-                  key={index} 
-                  className={`${
-                    channel.platform === 'Facebook' ? 'bg-red-50' : 
-                    channel.platform === 'Twitter' ? 'bg-blue-50' : 'bg-blue-50'
-                  } rounded-lg p-3 text-center`}
-                >
-                  <p className="text-sm text-gray-500">{channel.platform}</p>
-                  <p className="font-medium text-lg">{channel.percentage}%</p>
-                </div>
-              ))}
+              <div className="bg-red-50 rounded-lg p-3 text-center">
+                <p className="text-sm text-gray-500">Facebook</p>
+                <p className="font-medium text-lg">78%</p>
+              </div>
+              <div className="bg-pink-50 rounded-lg p-3 text-center">
+                <p className="text-sm text-gray-500">Twitter</p>
+                <p className="font-medium text-lg">45%</p>
+              </div>
+              <div className="bg-blue-50 rounded-lg p-3 text-center">
+                <p className="text-sm text-gray-500">LinkedIn</p>
+                <p className="font-medium text-lg">23%</p>
+              </div>
             </div>
           </div>
         </div>
@@ -314,7 +359,7 @@ const Dashboard = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
-              <tr className="text-left text-sm text-gray-500">
+              <tr className="text-left text-sm text-gray-900">
                 <th className="py-2 font-medium">Activities</th>
                 <th className="py-2 font-medium">Date</th>
                 <th className="py-2 font-medium">Time</th>
@@ -323,7 +368,7 @@ const Dashboard = () => {
             <tbody>
               {data.recentActivities.map((item, i) => (
                 <tr key={i} className="border-b last:border-0">
-                  <td className="py-2">{item.activity}</td>
+                  <td className="py-2 text-gray-500">{item.activity}</td>
                   <td className="py-2 text-gray-500">{item.date}</td>
                   <td className="py-2 text-gray-500">{item.time}</td>
                 </tr>
@@ -339,7 +384,7 @@ const Dashboard = () => {
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>
-              <tr className="text-left text-sm text-gray-500 border-b">
+              <tr className="text-left text-sm text-gray-900 border-b">
                 <th className="py-2 font-medium">Rank</th>
                 <th className="py-2 font-medium">Promoter Name</th>
                 <th className="py-2 font-medium">Conversion Rate</th>
@@ -351,12 +396,12 @@ const Dashboard = () => {
             <tbody>
               {data.leaderboard.map((person, i) => (
                 <tr key={i} className="border-b last:border-0 hover:bg-gray-50">
-                  <td className="py-3">{person.rank}</td>
-                  <td className="py-3">{person.name}</td>
-                  <td className="py-3">{person.conversions}</td>
-                  <td className="py-3">{person.referrals}</td>
-                  <td className="py-3">{person.successRate}</td>
-                  <td className="py-3">{person.revenue}</td>
+                  <td className="py-3 text-gray-500">{person.rank}</td>
+                  <td className="py-3 text-gray-500">{person.name}</td>
+                  <td className="py-3 text-gray-500">{person.conversions}</td>
+                  <td className="py-3 text-gray-500">{person.referrals}</td>
+                  <td className="py-3 text-gray-500">{person.successRate}</td>
+                  <td className="py-3 text-gray-500">{person.revenue}</td>
                 </tr>
               ))}
             </tbody>
@@ -383,15 +428,30 @@ const MetricCard = ({ label, value, change, icon, negative = false, bgColor }) =
   </div>
 );
 
-// Stat card with doughnut chart
-const PieStatCard = ({ label, value, color, helpIcon }) => {
+// Stat card with doughnut chart and gradients
+const PieStatCard = ({ label, value, color1, color2, bgColor, helpIcon }) => {
   const chartData = {
     labels: [],
     datasets: [
       {
         data: [parseInt(value), 100 - parseInt(value)],
-        backgroundColor: [color, "#E5E7EB"],
-        borderWidth: 0
+        backgroundColor: (context) => {
+          const chart = context.chart;
+          const { ctx } = chart;
+          // Create gradient for the active segment
+          const activeGradient = ctx.createLinearGradient(0, 0, 150, 0);
+          activeGradient.addColorStop(0, color1);
+          activeGradient.addColorStop(1, color2);
+          
+          // Create light gradient for inactive segment
+          const inactiveGradient = ctx.createLinearGradient(0, 0, 150, 0);
+          inactiveGradient.addColorStop(0, "#E5E7EB");
+          inactiveGradient.addColorStop(1, "#F3F4F6");
+          
+          return [activeGradient, inactiveGradient];
+        },
+        borderWidth: 0,
+        borderRadius: 8 // Add rounded corners to match the conversion chart
       }
     ]
   };
@@ -412,7 +472,7 @@ const PieStatCard = ({ label, value, color, helpIcon }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+    <div className={`bg-white rounded-lg p-4 shadow-sm border border-gray-100`}>
       <div className="flex justify-between items-center mb-2">
         <p className="text-sm text-gray-500">{label}</p>
         {helpIcon && (
