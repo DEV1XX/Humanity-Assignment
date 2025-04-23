@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const Login = () => {
@@ -7,22 +6,19 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
     // Login logic here
     console.log({ email, password, rememberMe });
-    // Navigate to home page regardless of input validity
-    navigate('/');
+    // Navigate to home page would go here
   };
 
   const handleMagicLinkLogin = (e) => {
     e.preventDefault();
     // Magic link login logic here
     console.log({ email });
-    // Navigate to home page after magic link request
-    navigate('/');
+    // Navigate to home page after magic link request would go here
   };
 
   const togglePasswordVisibility = () => {
@@ -30,14 +26,49 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 relative overflow-hidden">
+      {/* Static background with dotted lines */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          {/* Top right curve */}
+          <path 
+            d="M600,0 Q750,150 850,300" 
+            fill="none" 
+            stroke="#6366F1" 
+            strokeWidth="2" 
+            strokeDasharray="6 6" 
+            className="opacity-30"
+          />
+          
+          {/* Bottom left curve */}
+          <path 
+            d="M0,400 Q150,500 250,650" 
+            fill="none" 
+            stroke="#6366F1" 
+            strokeWidth="2" 
+            strokeDasharray="6 6" 
+            className="opacity-30"
+          />
+          
+          {/* Middle right curve */}
+          <path 
+            d="M800,200 Q650,300 700,500" 
+            fill="none" 
+            stroke="#6366F1" 
+            strokeWidth="2" 
+            strokeDasharray="6 6" 
+            className="opacity-30"
+          />
+        </svg>
+      </div>
+      
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md z-10">
         <h2 className="text-2xl font-medium text-center mb-6">Login to ReferralHub</h2>
         
         {/* Google/Microsoft Login Button */}
         <button 
           className="w-full py-2 px-4 border border-gray-300 rounded-md flex justify-center items-center gap-2 mb-4 hover:bg-gray-50 transition-colors"
-          onClick={() => navigate('/')}
+          onClick={() => console.log("Google/Microsoft login")}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -137,7 +168,7 @@ const Login = () => {
         <div className="flex justify-center space-x-4 mb-6">
           <button 
             className="p-2 rounded-full border border-gray-300 hover:bg-gray-50"
-            onClick={() => navigate('/')}
+            onClick={() => console.log("Google login")}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
@@ -148,19 +179,19 @@ const Login = () => {
           </button>
           <button 
             className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-600"
-            onClick={() => navigate('/')}
+            onClick={() => console.log("Facebook login")}
           >
             <Facebook size={20} />
           </button>
           <button 
             className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-400"
-            onClick={() => navigate('/')}
+            onClick={() => console.log("Twitter login")}
           >
             <Twitter size={20} />
           </button>
           <button 
             className="p-2 rounded-full border border-gray-300 hover:bg-gray-50 text-blue-700"
-            onClick={() => navigate('/')}
+            onClick={() => console.log("LinkedIn login")}
           >
             <Linkedin size={20} />
           </button>
@@ -168,7 +199,7 @@ const Login = () => {
 
         {/* Register Link */}
         <p className="text-center text-sm text-gray-600">
-          Don't have an account? <Link to="/register" className="text-blue-600 hover:underline">Register now</Link>
+          Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register now</a>
         </p>
       </div>
     </div>
