@@ -1,24 +1,62 @@
-import React, { useState } from 'react';
+// src/pages/Login.jsx
+import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../redux/slices/authSlice';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading, error: authError } = useSelector((state) => state.auth);
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
+  const [magicLinkSent, setMagicLinkSent] = useState(false);
 
-  const handleLogin = (e) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
+  }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (authError) {
+      setError(authError);
+    }
+  }, [authError]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Login logic here
-    console.log({ email, password, rememberMe });
-    // Navigate to home page would go here
+    
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+
+    setError('');
+    dispatch(loginUser({ email, password }));
   };
 
-  const handleMagicLinkLogin = (e) => {
+  const handleMagicLinkLogin = async (e) => {
     e.preventDefault();
-    // Magic link login logic here
-    console.log({ email });
-    // Navigate to home page after magic link request would go here
+    
+    if (!email) {
+      setError('Please enter your email');
+      return;
+    }
+
+    setError('');
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setMagicLinkSent(true);
+    } catch (error) {
+      setError('Failed to send magic link. Please try again.');
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -65,6 +103,18 @@ const Login = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md z-10">
         <h2 className="text-2xl font-medium text-center mb-6">Login to ReferralHub</h2>
         
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
+
+        {magicLinkSent && (
+          <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md">
+            Magic link has been sent to your email. Please check your inbox.
+          </div>
+        )}
+        
         {/* Google/Microsoft Login Button */}
         <button 
           className="w-full py-2 px-4 border border-gray-300 rounded-md flex justify-center items-center gap-2 mb-4 hover:bg-gray-50 transition-colors"
@@ -97,9 +147,10 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={loading && !magicLinkSent}
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
           >
-            Send Magic Link
+            {loading && !magicLinkSent ? 'Sending...' : 'Send Magic Link'}
           </button>
         </form>
 
@@ -153,9 +204,10 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            disabled={loading && magicLinkSent}
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
 

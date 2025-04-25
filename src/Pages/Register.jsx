@@ -1,18 +1,70 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Registration logic here
-    console.log({ email, password, confirmPassword });
+    
+    // Basic validation
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (!fullName || !email || !password) {
+      setError('Please fill in all required fields');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    const userData = {
+      email: email,
+      password: password,
+      role: 'BusinessOwner', // Default role, can be made dynamic if needed
+      full_name: fullName,
+      phone: phone || undefined // Only include if provided
+    };
+
+    try {
+      const response = await fetch('http://34.10.166.233/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle error response
+        throw new Error(data.detail || 'Registration failed');
+      }
+
+      // Registration successful
+      console.log('Registration successful', data);
+      // Redirect to login page after successful registration
+      navigate('/login');
+    } catch (error) {
+      console.error('Registration error:', error);
+      setError(error.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -28,8 +80,27 @@ const Register = () => {
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-medium text-center mb-6">Register for ReferralHub</h2>
         
-        {/* Email Field */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
+        
         <form onSubmit={handleRegister}>
+          {/* Full Name Field */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input
+              type="text"
+              placeholder="John Doe"
+              className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
+          
+          {/* Email Field */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Id</label>
             <input
@@ -39,6 +110,18 @@ const Register = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+            />
+          </div>
+          
+          {/* Phone Number Field (Optional) */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number (Optional)</label>
+            <input
+              type="tel"
+              placeholder="+1 (555) 123-4567"
+              className="w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
           
@@ -89,9 +172,10 @@ const Register = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4"
+            disabled={loading}
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4 disabled:opacity-70"
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </form>
 
