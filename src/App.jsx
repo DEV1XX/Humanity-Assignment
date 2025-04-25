@@ -14,7 +14,7 @@ import Promoters from './Pages/Promoters';
 import Leads from './Pages/Leads';
 import Payouts from './Pages/Payouts';
 import PlatformSetup from './Pages/PlatformSetup';
-import AIAgent from './Pages/AIAgent';
+import AIAgent from './Pages/AiAgent';
 // import Settings from './Pages/Settings';
 // import Help from './Pages/Help';
 import Register from './Pages/Register';
