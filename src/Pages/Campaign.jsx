@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import PastPromotersTab from "../Components/CampaignTabs/PastPromotersTab";
-import NewPromotersTab from "../components/CampaignTabs/NewPromotersTab";
-import NewLeadsTab from "../components/CampaignTabs/NewLeadsTab";
+import NewPromotersTab from "../Components/CampaignTabs/NewPromotersTab";
+import NewLeadsTab from "../Components/CampaignTabs/NewLeadsTab";
 
 const Campaign = () => {
   const [activeTab, setActiveTab] = useState("pastPromoters");
