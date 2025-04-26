@@ -181,7 +181,7 @@ const Promoters = () => {
         setMetricsLoading(true);
         // This is a placeholder since there's no specific metrics endpoint in the provided API docs
         // In a real app, you'd call the appropriate endpoint
-        const response = await fetch("http://34.10.166.233/metrics/promoter-metrics", {
+        const response = await fetch("/api/proxy/metrics/promoter-metrics", {
           method: "GET",
           headers: {
             "Authorization": "Basic " + btoa("username:password"), // Replace with actual credentials

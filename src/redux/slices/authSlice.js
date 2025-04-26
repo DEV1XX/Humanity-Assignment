@@ -1,5 +1,5 @@
-// src/redux/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { proxyRequest } from '../../api/apiProxy'; // Import the proxy function
 
 const initialState = {
   user: JSON.parse(localStorage.getItem('user')) || null,
@@ -13,21 +13,24 @@ export const loginUser = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://34.10.166.233/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.detail || 'Login failed');
-      }
-
+      // Use the proxy instead of direct fetch
+      const data = await proxyRequest('/auth/login', 'POST', { email, password });
+      
       return { user: data.user || { email }, token: data.access, refresh: data.refresh };
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  'auth/register',
+  async (userData, { rejectWithValue }) => {
+    try {
+      // Use the proxy instead of direct fetch
+      const data = await proxyRequest('/auth/register', 'POST', userData);
+      
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -68,6 +71,18 @@ const authSlice = createSlice({
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.loading = false;
+        // We don't update auth state here since we typically redirect to login after registration
+      })
+      .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

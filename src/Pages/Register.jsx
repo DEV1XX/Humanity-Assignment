@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
+import { proxyRequest } from '../api/apiProxy'; // Import the proxy function
 
 const Register = () => {
   const navigate = useNavigate();
@@ -40,21 +41,9 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch('http://34.10.166.233/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData)
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // Handle error response
-        throw new Error(data.detail || 'Registration failed');
-      }
-
+      // Use the proxy function instead of direct fetch
+      const data = await proxyRequest('/auth/register', 'POST', userData);
+      
       // Registration successful
       console.log('Registration successful', data);
       // Redirect to login page after successful registration
