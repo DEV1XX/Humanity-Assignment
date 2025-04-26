@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Facebook, Linkedin, Twitter } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/slices/authSlice';
 
@@ -51,11 +51,23 @@ const Login = () => {
 
     setError('');
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Implement magic link functionality using the proxy API
+      const response = await fetch('/api/proxy?endpoint=auth/magic-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.detail || 'Failed to send magic link');
+      }
+      
       setMagicLinkSent(true);
     } catch (error) {
-      setError('Failed to send magic link. Please try again.');
+      setError(error.message || 'Failed to send magic link. Please try again.');
     }
   };
 
@@ -251,7 +263,7 @@ const Login = () => {
 
         {/* Register Link */}
         <p className="text-center text-sm text-gray-600">
-          Don't have an account? <a href="/register" className="text-blue-600 hover:underline">Register now</a>
+          Don't have an account? <Link to="/register" className="text-blue-600 hover:underline">Register now</Link>
         </p>
       </div>
     </div>
