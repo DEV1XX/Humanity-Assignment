@@ -210,20 +210,19 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 min-h-screen ">
 
       {/* Top Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 bg-white p-2  rounded-lg  gap-4 mb-6">
         <MetricCard 
           label="Total Promoters" 
           value={data.metrics.totalPromoters.count.toLocaleString()} 
           change={data.metrics.totalPromoters.change} 
           icon={
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 " viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
             </svg>
           }
-          bgColor="bg-gray-50"
         />
         <MetricCard 
           label="Conversion rate" 
@@ -235,7 +234,6 @@ const Dashboard = () => {
               <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
           }
-          bgColor="bg-red-50"
         />
         <MetricCard 
           label="Revenue Generated" 
@@ -246,7 +244,6 @@ const Dashboard = () => {
               <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
             </svg>
           }
-          bgColor="bg-pink-50"
         />
         <MetricCard 
           label="Active Campaigns" 
@@ -256,7 +253,6 @@ const Dashboard = () => {
               <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
             </svg>
           }
-          bgColor="bg-blue-50"
         />
       </div>
 
@@ -414,9 +410,9 @@ const Dashboard = () => {
 
 // Top metric card with icon
 const MetricCard = ({ label, value, change, icon, negative = false, bgColor }) => (
-  <div className={`${bgColor} rounded-lg p-4 shadow-sm border border-gray-100`}>
+  <div className={`${bgColor}  rounded-sm p-4  border-r-2 border-r-gray-200`}>
     <div className="flex justify-between mb-2">
-      <p className="text-sm text-gray-500">{label}</p>
+      <p className="text-lg font-semibold text-gray-400">{label}</p>
       {icon}
     </div>
     <h2 className="text-xl font-medium text-gray-900">{value}</h2>
