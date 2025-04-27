@@ -162,7 +162,7 @@ const Payouts = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen p-6 font-sans">
+    <div className="bg-white shadow-md rounded-lg min-h-screen p-6 font-sans ml-8 mr-8">
       <div className="max-w-7xl mx-auto">
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -210,12 +210,12 @@ const Payouts = () => {
         </div>
         
         {/* Tab Navigation */}
-        <div className="bg-white rounded-lg mb-6">
+        <div className="bg-white rounded-lg mb-6 mr-191 ">
           <div className="flex border-b border-gray-200 p-1">
             {tabData.map((tab) => (
               <button
                 key={tab.id}
-                className={`py-3 px-6 rounded-md ${activeTab === tab.id ? 'bg-blue-50 text-blue-600' : 'text-gray-500'}`}
+                className={`py-1 px-6 rounded-md ${activeTab === tab.id ? 'bg-blue-50 text-blue-600' : 'text-gray-500'}`}
                 onClick={() => setActiveTab(tab.id)}
               >
                 {tab.label}

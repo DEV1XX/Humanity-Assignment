@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Search, Filter, Trash, Eye, SidebarOpen } from "lucide-react";
 
-const PastPromotersTab = ({ campaigns = null, loading = false, error = null, refreshCampaigns }) => {
+const PastPromotersTab = ({ campaigns = null, loading = false, error = null, refreshCampaigns, onCreateCampaign }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredCampaigns, setFilteredCampaigns] = useState([]);
   const [activeCampaigns, setActiveCampaigns] = useState([]);
@@ -58,10 +58,6 @@ const PastPromotersTab = ({ campaigns = null, loading = false, error = null, ref
     setActiveCampaigns(active);
   }, [campaigns, loading, error, searchTerm]);
   
-  const handleCreateCampaign = () => {
-    console.log("Create new campaign");
-  };
-  
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -70,12 +66,14 @@ const PastPromotersTab = ({ campaigns = null, loading = false, error = null, ref
     console.log("Filter campaigns");
   };
   
-  const handleDelete = (campaignId) => {
+  const handleDelete = async (campaignId) => {
     console.log("Delete campaign", campaignId);
+    // Implement campaign deletion logic here if API allows
   };
   
   const handleViewCampaign = (campaignId) => {
     console.log("View campaign", campaignId);
+    // Implement view campaign details logic here
   };
 
   if (loading) {
@@ -93,7 +91,7 @@ const PastPromotersTab = ({ campaigns = null, loading = false, error = null, ref
       <div className="flex flex-col md:flex-row justify-between mb-6 space-y-4 md:space-y-0">
         <button 
           className="flex items-center justify-center bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
-          onClick={handleCreateCampaign}
+          onClick={onCreateCampaign}
         >
           <Plus size={16} className="mr-2" />
           <span>Create New Campaign</span>

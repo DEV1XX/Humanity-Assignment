@@ -193,11 +193,11 @@ const AiAgent = () => {
       {/* Quick Links */}
       <div className="bg-white border-t border-gray-100 px-3 md:px-6 py-3 md:py-4">
         <h3 className="text-xs md:text-sm font-medium text-gray-700 mb-2 md:mb-3">Quick Links</h3>
-        <div className="flex gap-2 md:gap-3 mb-3 md:mb-4 overflow-x-auto pb-1">
+        <div className="flex gap-2 md:gap-3 mb-3 md:mb-4 overflow-x-auto pb-1 pl-5 pr-5 justify-evenly">
           {quickLinks.map((link, index) => (
             <button 
               key={index}
-              className="border border-gray-200 rounded py-1 md:py-2 px-3 md:px-4 text-xs text-gray-600 hover:bg-gray-50 flex items-center whitespace-nowrap shadow-sm hover:shadow"
+              className="border border-blue-500 w-full ml-5 mr-5 border-[2px] rounded-lg py-1 md:py-2 px-3 md:px-4 text-xs text-gray-600 hover:bg-gray-50 flex items-center whitespace-nowrap shadow-sm hover:shadow"
             >
               <span className="mr-1 md:mr-2 text-blue-600">{link.icon}</span>
               {link.label}

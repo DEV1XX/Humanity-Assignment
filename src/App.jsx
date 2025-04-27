@@ -13,7 +13,7 @@ import Campaign from './Pages/Campaign';
 import Promoters from './Pages/Promoters';
 import Leads from './Pages/Leads';
 import Payouts from './Pages/Payouts';
-import PlatformSetup from './Pages/PlatformSetup';
+import PlatformSetup from './Pages/PlatformSetup/PlatformSetup'; // Updated path
 import AIAgent from './Pages/AiAgent';
 // import Settings from './Pages/Settings';
 // import Help from './Pages/Help';

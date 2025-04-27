@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import { LogOut, Bell } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/slices/authSlice";
 
@@ -13,6 +13,7 @@ const Navbar = () => {
     email: ""
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(2); // Example notification count
   
   useEffect(() => {
     // Get user data from localStorage or sessionStorage
@@ -34,6 +35,9 @@ const Navbar = () => {
     
     // Remove leading slash and convert to title case
     if (path === "/") return "Dashboard";
+    if(path === "/leads") return "Manage and monitor your leads";
+    if(path === "/promoters") return "Manage and monitor your promoters";
+    if(path === "/payouts") return "Manage and monitor your payouts";
     
     const routeName = path.substring(1); // Remove leading slash
     
@@ -78,6 +82,14 @@ const Navbar = () => {
           </div>
         ) : (
           <>
+            <div className="relative">
+              <Bell size={20} className="text-gray-500 hover:text-blue-500 cursor-pointer" />
+              {notificationCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+                  {notificationCount}
+                </span>
+              )}
+            </div>
             <div className="text-right">
               <p className="text-sm font-medium">{userData.name}</p>
               <p className="text-xs text-gray-500">{userData.email}</p>
