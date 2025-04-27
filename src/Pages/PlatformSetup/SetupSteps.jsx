@@ -1,15 +1,24 @@
 import React from "react";
-import { CheckCircle, Circle } from "lucide-react";
+import { Circle } from "lucide-react";
 
 const SetupSteps = ({ setupSteps, completedSteps, inProgressStep }) => {
+  // Custom check mark SVG component
+  const CustomCheckMark = () => (
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="#19C79F" stroke="#19C79F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M32 18L21 29L16 24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+
+  );
+
   const renderStepIndicator = (step) => {
     if (completedSteps.includes(step.id)) {
       return (
         <div className="flex items-center">
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            {/* Modified tick to match Figma design */}
+            {/* Using the custom SVG tick mark instead of CheckCircle */}
             <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
-              <CheckCircle size={20} className="text-white" />
+              <CustomCheckMark />
             </div>
           </div>
           <div className="ml-3">
