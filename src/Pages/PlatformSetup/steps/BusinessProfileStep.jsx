@@ -4,10 +4,12 @@ import { ChevronDown } from "lucide-react";
 const BusinessProfileStep = ({ onNext }) => {
   return (
     <div>
+      <div className="flex flex-col justify-center items-center mb-6">
       <h2 className="text-xl font-semibold mb-2">Build Your Business Identity</h2>
       <p className="text-sm text-gray-600 mb-6">
         Help us tailor the referral experience by adding key details about your business
       </p>
+      </div>
 
       <div className="space-y-4">
         <div>
