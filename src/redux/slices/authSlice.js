@@ -13,7 +13,7 @@ export const loginUser = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch('//34.10.166.233/auth/login', {
+      const response = await fetch('https://cors-anywhere.herokuapp.com/http://34.10.166.233/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
