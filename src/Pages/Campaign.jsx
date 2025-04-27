@@ -176,7 +176,6 @@ const Campaign = () => {
       )}
       
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 space-y-2 sm:space-y-0">
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-800">Create & Manage Referral Campaigns</h1>
         {activeTab !== "pastPromoters" && (
           <div className="flex items-center">
             <div className="w-2 h-2 bg-gray-300 rounded-full mr-2"></div>
