@@ -117,7 +117,7 @@ const FirstCampaignStep = () => {
       </div>
 
       <div className="mt-8">
-        <button className="w-full py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md text-sm hover:from-blue-600 hover:to-blue-700 transition duration-200">
+        <button className="w-full py-2 bg-gradient-to-r from-[rgba(48,90,255,0.8)] to-[#B5D2FF] text-white rounded-md text-sm hover:from-blue-600 hover:to-blue-700 transition duration-200">
           Launch
         </button>
       </div>

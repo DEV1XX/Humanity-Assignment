@@ -270,7 +270,7 @@ const Promoters = () => {
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
         <div className="flex gap-3">
           <button 
-            className="flex items-center bg-blue-600 text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            className="flex items-center bg-gradient-to-r from-[rgba(48,90,255,0.8)] to-[#B5D2FF] text-white px-3 py-2 rounded-md hover:bg-blue-700 transition-colors"
             onClick={createNewPromoter}
           >
             <Plus size={16} className="mr-2" />
