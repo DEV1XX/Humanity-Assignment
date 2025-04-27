@@ -76,8 +76,19 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 relative">
+      {/* SVG Background container - with z-index-0 to keep it in the back */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+        <svg width="1440" height="452" viewBox="0 0 1440 452" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-1 397.997C129.254 453.548 220.379 463.406 359.5 436.997C519.764 406.575 720 225.997 720 225.997C720 225.997 920.236 45.4197 1080.5 14.9974C1219.62 -11.4115 1310.75 -1.55335 1441 53.9974" stroke="#305AFF" stroke-opacity="0.65" stroke-dasharray="6 6"/>
+        </svg>
+        <svg width="1440" height="452" viewBox="0 0 1440 452" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M-1 397.997C129.254 453.548 220.379 463.406 359.5 436.997C519.764 406.575 720 225.997 720 225.997C720 225.997 920.236 45.4197 1080.5 14.9974C1219.62 -11.4115 1310.75 -1.55335 1441 53.9974" stroke="#305AFF" stroke-opacity="0.65" stroke-dasharray="6 6"/>
+        </svg>
+      </div>
+      
+      {/* Form - with z-index-10 to ensure it's on top */}
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md z-10 relative">
         <h2 className="text-2xl font-medium text-center mb-6">Register for ReferralHub</h2>
         
         {error && (
@@ -173,7 +184,7 @@ const Register = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4 disabled:opacity-70"
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-[rgba(48,90,255,0.8)] to-[#B5D2FF] hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 mb-4 disabled:opacity-70"
           >
             {loading ? 'Registering...' : 'Register'}
           </button>

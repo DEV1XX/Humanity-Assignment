@@ -79,37 +79,12 @@ const Login = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100 relative overflow-hidden">
       {/* Static background with dotted lines */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          {/* Top right curve */}
-          <path 
-            d="M600,0 Q750,150 850,300" 
-            fill="none" 
-            stroke="#6366F1" 
-            strokeWidth="2" 
-            strokeDasharray="6 6" 
-            className="opacity-30"
-          />
-          
-          {/* Bottom left curve */}
-          <path 
-            d="M0,400 Q150,500 250,650" 
-            fill="none" 
-            stroke="#6366F1" 
-            strokeWidth="2" 
-            strokeDasharray="6 6" 
-            className="opacity-30"
-          />
-          
-          {/* Middle right curve */}
-          <path 
-            d="M800,200 Q650,300 700,500" 
-            fill="none" 
-            stroke="#6366F1" 
-            strokeWidth="2" 
-            strokeDasharray="6 6" 
-            className="opacity-30"
-          />
-        </svg>
+      <svg width="1440" height="452" viewBox="0 0 1440 452" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-1 397.997C129.254 453.548 220.379 463.406 359.5 436.997C519.764 406.575 720 225.997 720 225.997C720 225.997 920.236 45.4197 1080.5 14.9974C1219.62 -11.4115 1310.75 -1.55335 1441 53.9974" stroke="#305AFF" stroke-opacity="0.65" stroke-dasharray="6 6"/>
+      </svg>
+      <svg width="1440" height="452" viewBox="0 0 1440 452" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-1 397.997C129.254 453.548 220.379 463.406 359.5 436.997C519.764 406.575 720 225.997 720 225.997C720 225.997 920.236 45.4197 1080.5 14.9974C1219.62 -11.4115 1310.75 -1.55335 1441 53.9974" stroke="#305AFF" stroke-opacity="0.65" stroke-dasharray="6 6"/>
+      </svg>
       </div>
       
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md z-10">
@@ -160,7 +135,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading && !magicLinkSent}
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-[rgba(48,90,255,0.8)] to-[#B5D2FF] hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
           >
             {loading && !magicLinkSent ? 'Sending...' : 'Send Magic Link'}
           </button>
@@ -217,7 +192,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading && magicLinkSent}
-            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
+            className="w-full py-2 px-4 rounded-md text-white font-medium transition-all duration-200 bg-gradient-to-r from-[rgba(48,90,255,0.8)] to-[#B5D2FF] hover:from-blue-600 hover:to-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>

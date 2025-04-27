@@ -162,7 +162,7 @@ const Campaign = () => {
   const userRole = userData?.role || "Product Manager";
 
   return (
-    <div className="bg-white p-3 sm:p-6 rounded-lg shadow-sm">
+    <div className=" bg-white p-3 sm:p-6 rounded-lg shadow-sm">
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
           <p>{error}</p>
@@ -194,7 +194,7 @@ const Campaign = () => {
       </div>
 
       {/* Main Tabs - Desktop */}
-      <div className="hidden sm:block p-3 bg-white rounded-md">
+      <div className="hidden sm:block p-3  rounded-md">
         <div className="flex mb-6 bg-blue-100 p-1 w-fit rounded-md">
           <button 
             className={`py-2 px-6 rounded-l-md ml-1 text-sm ${activeTab === "pastPromoters" ? "bg-blue-100 text-blue-600" : "bg-white text-gray-600"}`}
